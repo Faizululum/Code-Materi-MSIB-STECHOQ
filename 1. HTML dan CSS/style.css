@@ -1,7 +1,15 @@
 .container {
-    width: auto;
-    height: auto;
+    width: 700px;
+    height: 700px;
     display: flex;
+    flex-direction: row;
+    /* Values: row, row-reverse, column, column-reverse */
+    align-items: center;
+    /* Values: flex-start, flex-end, center, baseline, stretch */
+    /* align-content: center; */
+    /* Values: flex-start, flex-end, center, space-between, space-around, stretch */
+    justify-content: space-around;
+    /* Values: flex-start, flex-end, center, space-between, space-around, stretch */
     background: #ecf0f1;
     margin: 50px auto;
     padding: 20px;
@@ -11,7 +19,7 @@
 .card {
     width: 100px;
     height: 100px;
-    /* margin: 10px; */
+    margin: 10px;
     border-radius: 5px;
     background: #3498db;
     color: #ecf0f1;
