@@ -1,0 +1,1 @@
+document.write("Hallo, ini adalah file eksternal javascript");
