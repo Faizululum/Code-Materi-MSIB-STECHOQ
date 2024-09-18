@@ -1,23 +1,27 @@
-.container {
-    width: 700px;
+/* .container {
+    width: auto;
     height: 700px;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(100px, 200px)); */
+    /* values: repeat(n, 1fr), repeat(n, minmax(min, max)) */
+    /* grid-template-rows: repeat(4, 1fr); */
+    /* display: flex;
     flex-direction: row;
-    /* Values: row, row-reverse, column, column-reverse */
+    Values: row, row-reverse, column, column-reverse
     align-items: center;
-    /* Values: flex-start, flex-end, center, baseline, stretch */
-    /* align-content: center; */
-    /* Values: flex-start, flex-end, center, space-between, space-around, stretch */
+    Values: flex-start, flex-end, center, baseline, stretch
+    align-content: center;
+    Values: flex-start, flex-end, center, space-between, space-around, stretch
     justify-content: space-around;
-    /* Values: flex-start, flex-end, center, space-between, space-around, stretch */
-    background: #ecf0f1;
-    margin: 50px auto;
+    Values: flex-start, flex-end, center, space-between, space-around, stretch
+    background: #ecf0f1; */
+    /* margin: 50px auto;
     padding: 20px;
     font-family: Poppins, Arial, Helvetica, sans-serif, sans-serif;
-}
+} */
 
 .card {
-    width: 100px;
+    width: auto;
     height: 100px;
     margin: 10px;
     border-radius: 5px;
@@ -43,4 +47,49 @@
 
 .bg-card-4 {
     background: #34495e;
+}
+
+main {
+    width: 700px;
+    border: 2px solid #ecf0f1;
+    margin: 50px auto;
+    padding: 2px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-areas: "header header"
+                         "aside section"
+                         "nav section"
+                         "footer footer";
+    grid-template-columns: 1fr 1.5fr;
+    grid-template-rows: 1fr 1.3fr;
+}
+
+header {
+    padding: 50px;
+    background-color: #3498db;
+    grid-area: header;
+}
+
+aside {
+    padding: 50px;
+    background-color: #e74c3c;
+    grid-area: aside;
+}
+
+nav {
+    padding: 50px;
+    background-color: #2ecc71;
+    grid-area: nav;
+}
+
+section {
+    padding: 50px;
+    background-color: #f1c40f;
+    grid-area: section;
+}
+
+footer {
+    padding: 50px;
+    background-color: #34495e;
+    grid-area: footer;
 }
