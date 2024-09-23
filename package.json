@@ -1,7 +1,7 @@
 {
   "name": "code-materi",
   "version": "1.0.0",
-  "main": "3. Dasar-Dasar Node.js",
+  "main": "Belajar Express (PZO)/src/index.js",
   "scripts": {
     "start": "node main app",
     "test": "echo \"Error: no test specified\" && exit 1"
