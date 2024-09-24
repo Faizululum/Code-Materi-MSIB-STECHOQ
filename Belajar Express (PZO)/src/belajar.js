@@ -249,3 +249,44 @@ console.log(addTwo(10));
 console.log(addTwo(20));
 
 const addTen = createAdder(10);
+
+// Object Method
+// 1
+// const person = {
+//     name: "Faizul",
+//     sayHello: function(name) {
+//         alert(`Hello ${name}`);
+//     }
+// };
+
+// 2
+// const person = {
+//     name: "Faizul",
+// };
+
+// person.sayHello = function(name) {
+//     alert(`Hello ${name}`);
+// }
+
+// person.sayHello("faizul");
+
+// This
+const person = {
+    name: "Faizul",
+    sayHello: function(name) {
+        document.writeln(`<p>Hello ${name}! my name is ${this.name}</p>`);
+        console.log(this);
+    }
+};
+
+person.sayHello("Faiz");
+
+// Arrow Function di Object
+const person1 = {
+    name: "Faizul",
+    sayHello: (name) => {
+        console.log(`Hello ${name}`);
+    }
+};
+
+person.sayHello("Faiz");
