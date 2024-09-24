@@ -104,3 +104,148 @@ function outer() {
 }
 // inner(); //error
 outer();
+
+// Scope
+// Global scope
+let counter = 0;
+
+function hitMe() {
+    // local scope
+    counter++;
+}
+
+function other() {
+    // local scope
+    
+}
+
+hitMe();
+hitMe();
+console.log(counter);
+
+function first() {
+    //local scope
+    let firstVariable = "first";
+}
+
+function second() {
+    //local scope
+    let secondVariable = "second";
+}
+
+// console.log(firstVariable); // error
+
+// Nested function Scope
+function firstNested() {
+    //local scope
+    let firstVariable = "first";
+    function secondNested() {
+        console.log(firstVariable);
+    }
+    secondNested();
+}
+// console.log(firstVariable); // error
+firstNested();
+
+// Recursive function
+function factorial(value) {
+    let result = 1;
+    for (let i = 1; i <= value; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+console.log(factorial(5));
+console.log(1 * 2 * 3 * 4 * 5);
+
+function factorialRecursive(value) {
+    if (value === 1) {
+        return 1;
+    }
+    return value * factorialRecursive(value - 1);
+}
+
+console.log(factorialRecursive(5));
+// 5 * factorialRecursive(4)
+// 5 * 4 * factorialRecursive(3)
+// 5 * 4 * 3 * factorialRecursive(2)
+// 5 * 4 * 3 * 2 * factorialRecursive(1)
+// 5 * 4 * 3 * 2 * 1
+
+// Function Generator
+function* createNames() {
+    yield "Muhammad";
+    yield "Faizul";
+    yield "Ulum";
+}
+
+const names = createNames();
+for (const name of names) {
+    console.log(name);
+}
+
+function* buatGanjil(value) {
+    for (let i = 0; i < value; i++) {
+        if (i % 2 === 1) {
+            yield i;
+        }
+    }
+}
+
+const numbers1 = buatGanjil(100);
+for (const number of numbers1) {
+    console.log(number);
+}
+
+// Arrow function
+// const hello = (name) => {
+//     const say = `Hello ${name}`;
+//     document.writeln(say);
+// };
+
+const hello = (name) => console.log(`Hello ${name}`);
+
+hello('Faizul');
+
+// const sum1 = (first, second) => {
+//     return first + second;
+// }
+
+const sum1 = (first, second) => first + second;
+
+console.log(sum1(1, 20));
+
+// Arrow function with parameters
+function giveMeName1 (callback) {
+    callback("Faizul");
+}
+
+// Anonymous function 
+giveMeName1(function(name) {
+    document.writeln(`<p>Anonymus: ${name}!</p>`);
+});
+
+giveMeName1(name => console.log(`Arrow: ${name}!`));
+
+// Closure
+function createAdder(value) {
+    const owner = "Faizul";
+
+    function add(param){
+        console.log(owner);
+        return value + param;
+    }
+
+    return add;
+}
+
+const addTwo = createAdder(2);
+// function addTwo(param){
+//     console.log("Faizul");
+//     return 2 + param;
+// }
+console.log(addTwo(10));
+console.log(addTwo(20));
+
+const addTen = createAdder(10);
