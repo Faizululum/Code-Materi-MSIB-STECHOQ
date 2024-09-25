@@ -290,3 +290,63 @@ const person1 = {
 };
 
 person.sayHello("Faiz");
+
+
+// Getter Setter
+const person2 = {
+    firstName: "Faizul",
+    lastName: "Ulum",
+    // Getter
+    get fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    },
+    // Setter
+    set fullName(value) {
+        // console.log(`ubah fullname menjadi ${value}`);
+        const array = value.split(" ");
+        this.firstName = array[0];
+        this.lastName = array[1];
+    }
+};
+
+person2.fullName = "Faizal Ulum";
+console.table(person2);
+person2.fullName = "Faizul Ulum";
+console.table(person2);
+person2.fullName = "Fafa Ulum";
+console.table(person2);
+
+person2.firstName = "Faiz";
+console.log(person2.fullName);
+
+// Destructuring
+{
+    const names1 = ["Muhammad", "Faizul", "Ulum", "Faiz", "Ulum"];
+    const [firstName, middleName, lastName, ...others] = names1;
+
+    console.log(firstName);
+    console.log(middleName);
+    console.log(lastName);
+    console.log(others);
+}
+
+// 
+{
+    const person = {
+        firstName: "Faizul",
+        lastName: "Ulum",
+        address: {
+            street: "Jalan 1",
+            city: "Jakarta",
+            country: "Indonesia"
+        },
+        hobbies: ["Reading", "Coding", "Sport"]
+    };
+
+    let {firstName, lastName, address:{street, city, country}, hobbies, ...others} = person;
+    console.log(firstName);
+    console.log(lastName);
+    console.log(street);
+    console.log(city);
+    console.log(others);
+}
