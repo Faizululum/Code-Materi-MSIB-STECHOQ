@@ -1,12 +1,20 @@
 const express = require('express');
 const app = express();
+const dotenv = require('dotenv');
+dotenv.config();
+
+const PORT = process.env.PORT;
 
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+  res.send(`Hello World! ${PORT}`);
 });
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+const authController = require('./auth/auth.controller');
+
+app.use('/api/auth', authController);
+
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 });

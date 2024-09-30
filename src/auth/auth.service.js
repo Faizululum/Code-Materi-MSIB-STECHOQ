@@ -9,7 +9,7 @@ async function register(username, email, password) {
             password: hashedPassword,
             role: "USER",
         };
-        const newUser = await userRepository.create(user);
+        const newUser = await userRepository.createUser(user);
         return newUser;
     } catch (error) {
         throw new Error('Failed to register user');
