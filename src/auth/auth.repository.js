@@ -9,4 +9,14 @@ async function createUser(userData) {
     }
 }
 
-module.exports = { createUser };
+// pembuatan API Login
+
+async function findUserByUsername(username) {
+    return prisma.user.findUnique({
+        where: {
+            username
+        }
+    });
+}
+
+module.exports = { createUser, findUserByUsername };
