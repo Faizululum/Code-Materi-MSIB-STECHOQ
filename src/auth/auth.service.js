@@ -1,5 +1,12 @@
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const userRepository = require('./auth.repository');
+
+function generateToken(user) {
+    return jwt.sign({ id: user.id, username: user.username, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+}
+
+// pembuatan API Register
 async function register(username, email, password) {
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -16,6 +23,7 @@ async function register(username, email, password) {
     }
 }
 
+// pembuatan API Login
 async function login(username, password) {
     const user = await userRepository.findUserByUsername(username);
     if (!user) {
@@ -27,7 +35,8 @@ async function login(username, password) {
         throw new Error('Invalid username or password');
     }
 
-    return user;
+    const token = generateToken(user);
+    return { user, token };
 }
 
 module.exports = { register, login };

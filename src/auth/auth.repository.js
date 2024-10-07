@@ -1,5 +1,6 @@
 const prisma = require('../db');
 
+// pembuatan API Register
 async function createUser(userData) {
     try {
         const newUser = await prisma.user.create({ data:userData });
@@ -10,12 +11,9 @@ async function createUser(userData) {
 }
 
 // pembuatan API Login
-
 async function findUserByUsername(username) {
     return prisma.user.findUnique({
-        where: {
-            username
-        }
+        where: { username }
     });
 }
 
