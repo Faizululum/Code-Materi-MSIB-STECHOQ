@@ -57,3 +57,5 @@ function Manager(firstName, lastName) {
 
 const faiz3 = new Manager("Faiz", "Ulum");
 console.log(faiz3);
+
+

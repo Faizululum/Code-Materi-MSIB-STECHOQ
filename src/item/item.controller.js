@@ -1,5 +1,11 @@
 const express = require('express');
-const { getAllItems, getItemById, createItem, editItemById, deleteItemById } = require('./item.service');
+const { 
+    getAllItems, 
+    getItemById, 
+    createItem, 
+    editItemById, 
+    deleteItemById
+ } = require('./item.service');
 
 const router = express.Router();
 

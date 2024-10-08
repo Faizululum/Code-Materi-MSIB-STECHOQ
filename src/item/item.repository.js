@@ -1,5 +1,6 @@
 const prisma = require('../db');
 
+// Create item
 async function insertItem(itemData) {
     const newItem = await prisma.item.create({
         data: {
@@ -11,6 +12,7 @@ async function insertItem(itemData) {
     return newItem;
 }
 
+// Get all items
 async function findItems() {
     const items = await prisma.item.findMany();
     return items;
@@ -25,6 +27,7 @@ async function findItemById(id) {
     return item;
 }
 
+// Update item by id
 async function editItem(id, itemData) {
     const updatedItem = await prisma.item.update({
         where: {
@@ -39,6 +42,7 @@ async function editItem(id, itemData) {
     return updatedItem;
 }
 
+// Delete item by id
 async function deleteItem(id) {
     await prisma.item.delete({
         where: {
@@ -47,4 +51,10 @@ async function deleteItem(id) {
     });
 }
 
-module.exports = { insertItem, findItems, findItemById, editItem, deleteItem };
+module.exports = { 
+    insertItem, 
+    findItems, 
+    findItemById, 
+    editItem, 
+    deleteItem 
+};
