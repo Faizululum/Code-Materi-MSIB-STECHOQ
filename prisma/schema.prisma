@@ -14,30 +14,19 @@ generator client {
   provider = "prisma-client-js"
 }
 
-enum UserRole {
-  ADMIN
-  USER
-}
-
-enum TransactionType {
-  BORROW
-  RETURN
-}
-
-enum TransactionStatus {
-  PENDING
-  ON_PROCESS
-  DONE
-}
-
 model User {
   id         Int          @id @default(autoincrement())
   username   String       @unique
-  email      String
+  email      String       
   password   String
   role       UserRole     @default(USER)
   createdAt  DateTime     @default(now())
   transactions Transaction[]
+}
+
+enum UserRole {
+  ADMIN
+  USER
 }
 
 model Item {
@@ -51,11 +40,19 @@ model Item {
 
 model Transaction {
   id         Int              @id @default(autoincrement())
-  user       User             @relation(fields: [user_id], references: [id])
-  user_id    Int
-  item       Item             @relation(fields: [item_id], references: [id])
-  item_id    Int
-  type       TransactionType
+  userId     Int
+  itemId     Int
+  quantityBorrowed Int
+  borrowedAt DateTime         @default(now())
+  returnedAt DateTime?
   status     TransactionStatus
-  createdAt  DateTime         @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  item   Item   @relation(fields: [itemId], references: [id])
+}
+
+enum TransactionStatus {
+  PENDING
+  BORROWED
+  RETURNED
 }
