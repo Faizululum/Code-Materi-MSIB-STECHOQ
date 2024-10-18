@@ -15,7 +15,7 @@ async function getAllTransactions() {
 
 // Get transaction by userId
 async function getTransactionByUserId(userId) {
-    const transaction = await transactionRepository.findTransactionById(userId);
+    const transaction = await transactionRepository.findTransactionByUserId(userId);
     return transaction;
 }
 

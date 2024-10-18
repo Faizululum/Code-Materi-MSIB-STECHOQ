@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const transactionService = require('./transaction.service');
+const authorizeJWT = require('../middleware/authorizeJWT');
+const adminAuthorization = require('../middleware/adminAuthorization');
 
 // Create transaction
-router.post("/borrow", async (req, res) => {
+router.post("/borrow", authorizeJWT, async (req, res) => {
     try {
         const { userId, itemId, quantityBorrowed } = req.body;
         const newTransaction = await transactionService.borrowItem(userId, itemId, quantityBorrowed);
@@ -14,7 +16,7 @@ router.post("/borrow", async (req, res) => {
 });
 
 // Get all transactions
-router.get("/", async (req, res) => {
+router.get("/", adminAuthorization, async (req, res) => {
     try {
         const transactions = await transactionService.getAllTransactions();
         res.send(transactions);
@@ -24,7 +26,7 @@ router.get("/", async (req, res) => {
 });
 
 // Get transaction by userId
-router.get("/user", async (req, res) => {
+router.get("/user", authorizeJWT, async (req, res) => {
     const { userId } = req.body;
     try {
         const transaction = await transactionService.getTransactionByUserId(userId);
@@ -46,7 +48,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Update transaction status
-router.patch("/verify/:transactionId", async (req, res) => {
+router.patch("/verify/:transactionId", adminAuthorization, async (req, res) => {
     try {
         const { transactionId } = req.params;
         const { status } = req.body;
@@ -58,7 +60,7 @@ router.patch("/verify/:transactionId", async (req, res) => {
 });
 
 // Return Item
-router.post("/return/:transactionId", async (req, res) => {
+router.post("/return/:transactionId", authorizeJWT, async (req, res) => {
     try {
         const { transactionId } = req.params;
         const { userId } = req.body;
