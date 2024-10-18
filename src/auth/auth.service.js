@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const userRepository = require('./auth.repository');
 
 function generateToken(user) {
-    return jwt.sign({ id: user.userId, username: user.username, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    return jwt.sign({ id: user.id, username: user.username, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
 }
 
 // pembuatan API Register
