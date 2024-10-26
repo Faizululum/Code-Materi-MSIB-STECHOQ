@@ -108,6 +108,16 @@ h2 {
   font-size: 24px;
 }
 
+.add-btn {
+  background-color: #754bc5;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;

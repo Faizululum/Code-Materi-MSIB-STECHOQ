@@ -2,42 +2,38 @@
   <div class="item-list">
     <div class="header">
       <h2>Daftar Barang</h2>
-      <button class="add-btn" @click="$emit('add-item')">Tambah Barang</button>
+      <button class="add-btn" @click="showAddForm">Tambah Barang</button>
     </div>
-    <div class="table-responsive">
-      <table>
-        <thead>
-          <tr>
-            <th>Kode Barang</th>
-            <th>Nama Barang</th>
-            <th>Deskripsi</th>
-            <th>Stok</th>
-            <th class="action-column">Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in items" :key="item.kode">
-            <td>{{ item.kode }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.deskripsi }}</td>
-            <td>{{ item.stok }}</td>
-            <td class="action-buttons">
-              <button class="edit-btn" @click="$emit('edit-item', item)">
-                Edit
-              </button>
-              <button class="delete-btn" @click="deleteItem(item.kode)">
-                Hapus
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="item-cards">
+      <ItemCard
+        v-for="item in items"
+        :key="item.kode"
+        :item="item"
+        @edit-item="editItem"
+        @delete-item="deleteItem"
+      />
     </div>
+    <Modal :visible="showForm" @close="cancelEditForm">
+      <ItemForm
+        :item="selectedItem"
+        :isEdit="isEdit"
+        @submit="handleSubmit" @cancel="cancelEditForm" 
+      />
+    </Modal>
   </div>
 </template>
 
 <script>
+import ItemCard from "./ItemCard.vue";
+import Modal from "../Modal.vue";
+import ItemForm from "./ItemForm.vue";
+
 export default {
+  components: {
+    ItemCard,
+    Modal,
+    ItemForm,
+  },
   data() {
     return {
       items: [
@@ -55,10 +51,35 @@ export default {
           stok: 80,
         },
       ],
+      showForm: false,
+      selectedItem: null,
+      isEdit: false,
     };
   },
 
   methods: {
+    showAddForm() {
+      this.selectedItem = {kode: "", nama: "", deskripsi: "", stok: 0};
+      this.isEdit = false;
+      this.showForm = true;
+    },
+    editItem(item) {
+      this.selectedItem = {...item};
+      this.isEdit = true;
+      this.showForm = true;
+    },
+    handleSubmit(item) {
+      if (this.isEdit) {
+        const index = this.items.findIndex((i) => i.kode === item.kode);
+        this.items[index] = item;
+      } else {
+        this.items.push(item);
+      }
+      this.showForm = false;
+    },
+    cancelEditForm() {
+      this.showForm = false;
+    },
     deleteItem(kode) {
       this.items = this.items.filter((item) => item.kode !== kode);
       this.$emit("delete-item", kode);
