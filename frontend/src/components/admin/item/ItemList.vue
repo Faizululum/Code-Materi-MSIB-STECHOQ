@@ -25,7 +25,7 @@
 
 <script>
 import ItemCard from "./ItemCard.vue";
-import Modal from "../Modal.vue";
+import Modal from "../../Modal.vue";
 import ItemForm from "./ItemForm.vue";
 
 export default {
