@@ -1,5 +1,5 @@
 <template>
-    <header :class="{expanded: isSidebarVisible}">
+    <header :class="{expanded: !isSidebarVisible}">
         <button class="toggle-btn" @click="toggleSidebar">☰</button>
         <div class="header-content">
             <div class="search-bar-container">

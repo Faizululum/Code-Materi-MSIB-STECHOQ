@@ -15,7 +15,7 @@
         @submit="handleSubmit"
         @cancel="cancelEditForm"
         :item="selectedItem"
-        isEdit="isEdit"
+        :isEdit="isEdit"
       />
     </div>
   </div>
@@ -35,7 +35,7 @@ export default {
     HistoryList,
   },
   props: {
-    component: {
+    currentComponent: {
       type: String,
       required: true,
     },

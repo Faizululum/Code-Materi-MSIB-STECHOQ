@@ -13,15 +13,11 @@ const routes = [
     path: "/admin/:component?",
     name: "admin",
     component: AdminView,
-    props: true,
-    meta: { requiresAuth: true, role: "ADMIN" },
   },
   {
     path: "/user/:component?",
     name: "user",
     component: UserView,
-    props: (route) => ({ component: route.params.component }),
-    meta: { requiresAuth: true, role: "USER" },
   },
 ];
 

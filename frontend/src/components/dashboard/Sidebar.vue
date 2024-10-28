@@ -1,5 +1,5 @@
 <template>
-    <div :class="['sidebar', { 'd-none': isSidebarVisible }]">
+    <div :class="['sidebar', { 'd-none': !isSidebarVisible }]">
         <a class="logo">Simbok</a>
         <ul>
             <li v-if="currentRole === 'admin'">
@@ -63,9 +63,11 @@ export default {
 
 .logo {
     font-size: 24px;
+    margin-left: -20px;
     margin-bottom: 30px;
     font-weight: bold;
     text-align: center;
+    justify-content: center;
 }
 
 ul {
@@ -84,8 +86,8 @@ a {
     text-decoration: none;
     cursor: pointer;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    margin-left: 20px;
     padding: 10px 0;
     transition: background-color 0.3s ease;
 }

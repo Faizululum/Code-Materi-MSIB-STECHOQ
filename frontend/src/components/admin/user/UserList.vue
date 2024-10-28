@@ -4,15 +4,17 @@
       <h2>Daftar Pengguna</h2>
       <button class="add-btn" @click="showAddForm">Tambah Pengguna</button>
     </div>
+
     <div class="user-cards">
       <UserCard
-        v-for="user in filteredUsers"
+        v-for="user in users"
         :key="user.id"
         :user="user"
         @edit-user="editUser"
-        @delete-user="handleDeleteUser"
+        @delete-user="deleteUser"
       />
     </div>
+
     <Modal :visible="showForm" @close="cancelEditForm">
       <UserForm
         :user="selectedUser"
@@ -25,58 +27,40 @@
 </template>
 
 <script>
-import { computed, onMounted } from "vue";
 import UserCard from "@/components/admin/user/UserCard.vue";
 import Modal from "@/components/Modal.vue";
 import UserForm from "@/components/admin/user/UserForm.vue";
-import eventBus from "@/utils/eventBus";
 
 export default {
-  name: "users",
   components: {
     UserCard,
     Modal,
     UserForm,
   },
-  setup() {
-    const userStore = useUserStore();
-    const authStore = useAuthStore();
-    const users = computed(() => userStore.users);
-
-    onMounted(() => {
-      if (authStore.token) {
-        userStore.fetchUsers();
-      } else {
-        console.error("User is not authenticated");
-      }
-    });
-
-    return {
-      users,
-      userStore,
-      addUser: userStore.addUser,
-      updateUser: userStore.updateUser,
-      deleteUser: userStore.deleteUser,
-    };
-  },
   data() {
     return {
+      users: [
+        {
+          id: 1,
+          username: "Faizul",
+          email: "Faizul25@example.com",
+          role: "ADMIN",
+        },
+        {
+          id: 2,
+          username: "Ulum",
+          email: "faiz@example.com",
+          role: "USER",
+        },
+      ],
       showForm: false,
       selectedUser: null,
       isEdit: false,
-      searchQuery: "",
     };
-  },
-  computed: {
-    filteredUsers() {
-      return this.users.filter((user) =>
-        user.username.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-    },
   },
   methods: {
     showAddForm() {
-      this.selectedUser = { id: "", username: "", email: "", role: "USER" };
+      this.selectedUser = { username: "", email: "", role: "USER" };
       this.isEdit = false;
       this.showForm = true;
     },
@@ -85,31 +69,24 @@ export default {
       this.isEdit = true;
       this.showForm = true;
     },
-    async handleSubmit(user) {
-      if (this.isEdit) {
-        await this.updateUser(user);
-      } else {
-        await this.addUser(user);
+    handleSubmit(user) {
+      if (user.username && user.email && user.role) {
+        if (this.isEdit) {
+          const index = this.users.findIndex((u) => u.id === user.id);
+          this.users[index] = user;
+        } else {
+          user.id = this.users.length + 1; // Menetapkan ID baru
+          this.users.push(user);
+        }
       }
-      await this.userStore.fetchUsers(); 
       this.showForm = false;
     },
     cancelEditForm() {
       this.showForm = false;
     },
-    async handleDeleteUser(id) {
-      await this.deleteUser(id);
-      await this.userStore.fetchUsers(); 
+    deleteUser(id) {
+      this.users = this.users.filter((user) => user.id !== id);
     },
-    handleSearch(query) {
-      this.searchQuery = query;
-    },
-  },
-  mounted() {
-    eventBus.on("search", this.handleSearch);
-  },
-  beforeUnmount() {
-    eventBus.off("search", this.handleSearch);
   },
 };
 </script>
