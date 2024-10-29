@@ -2,7 +2,8 @@
     <div class="item-list">
         <div class="header">
             <h2>Daftar Barang</h2>
-            <div class="table-responsive"></div>
+          </div>
+            <div class="table-responsive">
             <table>
                 <thead>
                     <tr>
@@ -25,7 +26,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+          </div>
         <Modal :visible="showForm" @close="cancelBorrowForm">
             <ItemForm @submit="handleBorrow" @cancel="cancelBorrowForm" :item="selectedItem" />
 
@@ -102,11 +103,11 @@ export default {
 
 <style scoped>
 .item-list {
-  padding: 16px;
+  padding: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 8px 0;
+  margin: 20px 0;
 }
 
 h2 {

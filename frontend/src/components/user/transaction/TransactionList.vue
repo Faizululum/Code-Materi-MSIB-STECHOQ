@@ -14,7 +14,7 @@
                         <th>Jumlah Pinjam</th>
                         <th>Tanggal Kembali</th>
                         <th>Status</th>
-                        <th>Aksi</th>
+                        <th class="action-column">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -129,7 +129,7 @@ table {
 th,
 td {
   border: 1px solid #ddd;
-  padding: 12px;
+  padding: 12px 15px;
   text-align: left;
 }
 
@@ -148,12 +148,18 @@ tr:hover {
   background-color: #ddd;
 }
 
+.action-column {
+  width: 100px;
+  text-align: center;
+}
+
 button {
   padding: 8px 12px;
   border: none;
   cursor: pointer;
   border-radius: 4px;
   font-size: 14px;
+  margin: 0 2px;
 }
 
 .return-btn {

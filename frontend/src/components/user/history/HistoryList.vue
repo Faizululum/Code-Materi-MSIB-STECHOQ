@@ -59,11 +59,11 @@ export default {
 
 <style scoped>
 .history-list {
-  padding: 16px;
+  padding: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 8px 0;
+  margin: 20px 0;
 }
 
 h2 {

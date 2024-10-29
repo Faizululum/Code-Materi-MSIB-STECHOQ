@@ -134,7 +134,7 @@ body {
   font: 1em sans-serif;
   height: calc(100vh - 60px);
   margin-top: 60px;
-  background-color: #4b3f6b;
+  background-color: #fff;
 }
 
 .main-content {

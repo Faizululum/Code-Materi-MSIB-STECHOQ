@@ -3,16 +3,16 @@
         <a class="logo">Simbok</a>
         <ul>
             <li v-if="currentRole === 'admin'">
-                <a href="#" @click.prevent="showComponent('users')"><i class="fas fa-home"></i> Users</a>
+                <a href="#" @click.prevent="showComponent('users')" class="nav-link"><i class="fas fa-home"></i> Users</a>
             </li>
             <li>
-                <a href="#" @click.prevent="showComponent('items')"><i class="fas fa-box"></i> Items</a>
+                <a href="#" @click.prevent="showComponent('items')" class="nav-link"><i class="fas fa-box"></i> Items</a>
             </li>
             <li>
-                <a href="#" @click.prevent="showComponent('transactions')"><i class="fas fa-exchange-alt"></i> Transactions</a>
+                <a href="#" @click.prevent="showComponent('transactions')" class="nav-link"><i class="fas fa-exchange-alt"></i> Transactions</a>
             </li>
             <li v-if="currentRole === 'user'">
-                <a href="#" @click.prevent="showComponent('history')"><i class="fas fa-user"></i> History</a>
+                <a href="#" @click.prevent="showComponent('history')" class="nav-link"><i class="fas fa-user"></i> History</a>
             </li>
         </ul>
     </div>
@@ -87,8 +87,7 @@ a {
     cursor: pointer;
     display: flex;
     align-items: left;
-    margin-left: 20px;
-    padding: 10px 0;
+    padding: 10px 20px;
     transition: background-color 0.3s ease;
 }
 
