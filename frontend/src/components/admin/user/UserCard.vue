@@ -6,8 +6,8 @@
         <p><strong>Role:</strong> {{ user.role }}</p>
       </div>
       <div class="user-actions">
-        <button class="edit-btn" @click="$emit('edit-user', user)">Edit</button>
-        <button class="delete-btn" @click="$emit('delete-user', user.id)">
+        <button class="btn btn-success" @click="$emit('edit-user', user)">Edit</button>
+        <button class="btn btn-danger" @click="$emit('delete-user', user.id)">
           Delete
         </button>
       </div>

@@ -1,16 +1,17 @@
 <template>
-  <div class="item-list">
-    <div class="header">
+  <div class="item-list container py-4">
+    <div class="header d-flex justify-content-between align-items-center mb-3">
       <h2>Daftar Barang</h2>
-      <button class="add-btn" @click="showAddForm">Tambah Barang</button>
+      <button class="btn btn-primary" @click="showAddForm">Tambah Barang</button>
     </div>
-    <div class="item-cards">
+    <div class="item-cards row gap-3">
       <ItemCard
         v-for="item in items"
         :key="item.kode"
         :item="item"
         @edit-item="editItem"
         @delete-item="deleteItem"
+        class="col-md-6 col-lg-4"
       />
     </div>
     <Modal :visible="showForm" @close="cancelEditForm">
@@ -44,6 +45,12 @@ export default {
           stok: 80,
         },
 
+        {
+          kode: "2024002",
+          nama: "Lenovo LOQ 15 15IRH8",
+          deskripsi: "Intel Core i5 13450H, RTX 3050, RAM 8GB DDR4, LAYAR 15.6",
+          stok: 80,
+        },
         {
           kode: "2024002",
           nama: "Lenovo LOQ 15 15IRH8",
@@ -199,4 +206,16 @@ button {
     margin: 5px 0;
   }
 }
+
+.item-list {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .header h2 {
+    color: #4b3f6b;
+    font-size: 24px;
+  }
+  
 </style>
