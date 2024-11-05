@@ -110,38 +110,31 @@ export default {
 </script>
 
 <style scoped>
-/* Gaya untuk tabel */
-table {
-  width: 100%;
-  border-collapse: collapse;
+.form {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px 0;
 }
 
-/* Gaya untuk sel tabel */
-td {
-  padding: 10px;
-  border: 1px solid #ddd;
+.mb-3 {
+  margin-bottom: 1rem;
 }
 
-/* Gaya untuk input teks dan number */
-input[type="text"],
-input[type="number"] {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
+.form label {
+  font-weight: bold;
+  color: #4b3f6b;
 }
 
-/* Gaya untuk tombol submit */
-button[type="submit"] {
-  background-color: #4caf50;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.form-control {
+  border-radius: 0.25rem;
+  border: 1px solid #ced4da;
 }
 
-/* Gaya untuk tombol submit saat di-hover */
-button[type="submit"]:hover {
-  background-color: #45a049;
+.form-control:focus {
+  border-color: #4b3f6b;
+  box-shadow: 0 0 0 0.25rem rgba(75, 63, 107, 0.25);
 }
+
 </style>

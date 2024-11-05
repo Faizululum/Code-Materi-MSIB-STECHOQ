@@ -4,25 +4,27 @@
       <h2>Daftar Barang</h2>
       <button class="btn btn-primary" @click="showAddForm">Tambah Barang</button>
     </div>
-    <div class="item-cards row gap-3">
+    <div class="row">
       <ItemCard
         v-for="item in items"
         :key="item.kode"
         :item="item"
         @edit-item="editItem"
         @delete-item="deleteItem"
-        class="col-md-6 col-lg-4"
+        class="col-md-4 mb-0"
       />
     </div>
     <Modal :visible="showForm" @close="cancelEditForm">
       <ItemForm
         :item="selectedItem"
         :isEdit="isEdit"
-        @submit="handleSubmit" @cancel="cancelEditForm" 
+        @submit="handleSubmit"
+        @cancel="cancelEditForm"
       />
     </Modal>
   </div>
 </template>
+
 
 <script>
 import ItemCard from "./ItemCard.vue";

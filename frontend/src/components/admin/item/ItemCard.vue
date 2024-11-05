@@ -36,26 +36,22 @@ export default {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Gaya untuk judul kartu */
 .item-card .card-title {
   margin: 0 0 10px;
   font-size: 1.5em;
   color: #333;
 }
 
-/* Gaya untuk teks deskripsi */
 .item-card .card-text {
   margin: 5px 0;
   color: #555;
 }
 
-/* Gaya khusus untuk teks stock */
 .item-card .stock {
   font-weight: bold;
   color: #2c3e50;
 }
 
-/* Gaya untuk tombol dengan transisi warna */
 .item-card button {
   transition: background-color 0.2s;
 }
