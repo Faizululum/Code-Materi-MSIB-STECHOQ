@@ -5,6 +5,6 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import router from "./router";
 
-const app = createApp(App);
+const app = createApp(App).use(router);
 app.use(router);
 app.mount("#app");
