@@ -43,13 +43,13 @@ export default {
         {
           id: 1,
           username: "Faizul",
-          email: "Faizul25@example.com",
+          email: "Faizul25@gmail.com",
           role: "ADMIN",
         },
         {
           id: 2,
           username: "Ulum",
-          email: "faiz@example.com",
+          email: "faiz255@gmail.com",
           role: "USER",
         },
       ],
