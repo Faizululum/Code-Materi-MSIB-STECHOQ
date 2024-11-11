@@ -13,7 +13,7 @@
         @showComponent="navigateTo"
       />
       <div class="main-content" :class="{ expanded: isSidebarVisible }">
-        <router-view :key="$route.fullPath" :currentComponent="$route.params.component" />
+        <router-view :key="$route.fullPath" />
       </div>
     </div>
   </div>
