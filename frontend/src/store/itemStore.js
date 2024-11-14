@@ -17,7 +17,7 @@ export const useItemStore = defineStore('item', {
         stok: 80,
       },
       {
-        kode: "2024002",
+        kode: "2024003",
         nama: "Lenovo LOQ 15 15IRH8",
         deskripsi: "Intel Core i5 13450H, RTX 3050, RAM 8GB DDR4, LAYAR 15.6",
         stok: 80,

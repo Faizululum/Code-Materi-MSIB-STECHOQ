@@ -25,11 +25,12 @@
   </div>
 </template>
 
-
 <script>
 import ItemCard from "./ItemCard.vue";
 import Modal from "../../Modal.vue";
 import ItemForm from "./ItemForm.vue";
+import { EventBus } from "@/utils/eventBus";
+import { useItemStore } from "../../../store/itemStore";
 
 export default {
   components: {
@@ -37,41 +38,85 @@ export default {
     Modal,
     ItemForm,
   },
+
   data() {
     return {
       showForm: false,
       selectedItem: null,
       isEdit: false,
+      searchQuery: "",
     };
+  },
+
+  computed: {
+    items() {
+      return this.itemStore.items;
+    },
+
+    filteredItems() {
+      return this.items.filter((item) => {
+        return (
+          item.kode.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          item.nama.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
+      });
+    },
   },
 
   methods: {
     showAddForm() {
-      this.selectedItem = {kode: "", nama: "", deskripsi: "", stok: 0};
+      this.selectedItem = { kode: "", nama: "", deskripsi: "", stok: "" };
       this.isEdit = false;
       this.showForm = true;
     },
+
     editItem(item) {
-      this.selectedItem = {...item};
+      this.selectedItem = { ...item };
       this.isEdit = true;
       this.showForm = true;
     },
+
     handleSubmit(item) {
-      if (this.isEdit) {
-        const index = this.items.findIndex((i) => i.kode === item.kode);
-        this.items[index] = item;
-      } else {
-        this.items.push(item);
+      if (
+        item.kode &&
+        item.nama &&
+        item.deskripsi &&
+        item.stok !== null &&
+        !isNaN(item.stok)
+      ) {
+        if (this.isEdit) {
+          this.itemStore.updateItem(item);
+        } else {
+          this.itemStore.addItem(item);
+        }
+        this.showForm = false;
       }
-      this.showForm = false;
     },
+
     cancelEditForm() {
       this.showForm = false;
     },
+
     deleteItem(kode) {
-      this.items = this.items.filter((item) => item.kode !== kode);
-      this.$emit("delete-item", kode);
+      this.itemStore.deleteItem(kode);
     },
+
+    handleSearch(query) {
+      this.searchQuery = query;
+    },
+  },
+
+  mounted() {
+    EventBus.on("search", this.handleSearch);
+  },
+
+  beforeUnmount() {
+    EventBus.off("search", this.handleSearch);
+  },
+
+  setup() {
+    const itemStore = useItemStore();
+    return { itemStore };
   },
 };
 </script>
