@@ -44,4 +44,5 @@ export const useItemStore = defineStore('item', {
       this.items = this.items.filter((item) => item.kode !== kode);
     }
   },
+  persist: true,
 })
