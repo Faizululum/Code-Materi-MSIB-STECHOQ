@@ -3,16 +3,24 @@
         <a class="logo">Simbok</a>
         <ul>
             <li v-if="currentRole === 'admin'">
-                <a href="#" @click.prevent="showComponent('users')" class="nav-link"><i class="fas fa-home"></i> Users</a>
+                <button @click="navigateTo('users')" class="nav-link">
+                    <i class="fas fa-home"></i> Users
+                </button>
             </li>
             <li>
-                <a href="#" @click.prevent="showComponent('items')" class="nav-link"><i class="fas fa-box"></i> Items</a>
+                <button @click="navigateTo('items')" class="nav-link">
+                    <i class="fas fa-box"></i> Items
+                </button>
             </li>
             <li>
-                <a href="#" @click.prevent="showComponent('transactions')" class="nav-link"><i class="fas fa-exchange-alt"></i> Transactions</a>
+                <button @click="navigateTo('transactions')" class="nav-link">
+                    <i class="fas fa-exchange-alt"></i> Transactions
+                </button>
             </li>
             <li v-if="currentRole === 'user'">
-                <a href="#" @click.prevent="showComponent('history')" class="nav-link"><i class="fas fa-user"></i> History</a>
+                <button @click="navigateTo('history')" class="nav-link">
+                    <i class="fas fa-user"></i> History
+                </button>
             </li>
         </ul>
     </div>
@@ -31,11 +39,11 @@ export default {
         },
     },
     methods: {
-        showComponent(component) {
-            this.$emit("showComponent", component);
+        navigateTo(component) {
+            const baseRoute = this.currentRole === "admin" ? "admin" : "user";
+            this.$router.push({ name: baseRoute, params: { component } });
         },
     },
-    emits: ["showComponent"],
 };
 </script>
 
@@ -81,7 +89,7 @@ li {
     text-align: center;
 }
 
-a {
+button, a {
     color: white;
     text-decoration: none;
     cursor: pointer;
@@ -91,12 +99,12 @@ a {
     transition: background-color 0.3s ease;
 }
 
-a:hover {
+button:hover {
     text-decoration: underline;
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-a i {
+button i {
     margin-right: 8px;
 }
 </style>

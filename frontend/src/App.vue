@@ -1,19 +1,33 @@
 <template>
   <div id="app">
+    <!-- Header Component -->
     <Header
+      v-if="showHeader"
       :currentRole="currentRole"
       @update-role="updateRole"
       @toggle-sidebar="toggleSidebar"
       :isSidebarVisible="isSidebarVisible"
     />
-    <div class="app-content">
+
+    <!-- Main Content -->
+    <div class="app-content" :class="{ noHeader: !showHeader }">
+      <!-- Sidebar Component -->
       <Sidebar
+        v-if="showSidebar"
         :currentRole="currentRole"
         :isSidebarVisible="isSidebarVisible"
         @showComponent="navigateTo"
       />
-      <div class="main-content" :class="{ expanded: isSidebarVisible }">
-        <router-view :key="$route.fullPath" />
+
+      <!-- Router View -->
+      <div
+        class="main-content"
+        :class="{ expanded: isSidebarVisible && showSidebar }"
+      >
+        <router-view
+          :key="$route.fullPath"
+          :currentComponent="$route.params.component"
+        />
       </div>
     </div>
   </div>
@@ -29,7 +43,6 @@ export default {
     Header,
     Sidebar,
   },
-
   data() {
     return {
       currentRole: this.$route.name || "admin",
@@ -37,33 +50,35 @@ export default {
       searchTerm: "",
     };
   },
-
+  computed: {
+    showHeader() {
+      return !this.$route.meta.hideHeader;
+    },
+    showSidebar() {
+      return !this.$route.meta.hideSidebar;
+    },
+  },
   watch: {
     "$route.name"(newRole) {
       this.currentRole = newRole;
     },
   },
-
-  computed: {
-    currentView() {
-      return this.currentRole === "admin" ? AdminView : UserView;
-    },
-  },
-
   methods: {
     updateRole(role) {
       this.currentRole = role;
-      this.navigateTo("items");
     },
-
     navigateTo(component) {
-      this.$router.push({ name: this.currentRole, params: { component } });
+      if (this.currentRole === "ADMIN") {
+        this.$router.push({ name: "admin", params: { component } });
+      } else if (this.currentRole === "USER") {
+        this.$router.push({ name: "user" });
+      } else {
+        this.$router.push({ name: "login" });
+      }
     },
-
     toggleSidebar() {
       this.isSidebarVisible = !this.isSidebarVisible;
     },
-
     handleSearch(newQuery) {
       console.log("Search term:", newQuery);
       if (this.currentRole === "admin") {
@@ -73,11 +88,9 @@ export default {
       }
     },
   },
-
   mounted() {
     EventBus.on("search", this.handleSearch);
   },
-
   beforeUnmount() {
     EventBus.off("search", this.handleSearch);
   },
@@ -85,8 +98,7 @@ export default {
 </script>
 
 <style scoped>
-html,
-body {
+html, body {
   height: 100%;
   margin: 0;
   background-color: #4b3f6b;
@@ -103,10 +115,10 @@ body {
   display: flex;
   flex-grow: 1;
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  font: 1em sans-serif;
+  font-size: 1em;
   height: calc(100vh - 60px);
   margin-top: 60px;
-  background-color: #fff;
+  background-color: #4b3f6b;
 }
 
 .main-content {

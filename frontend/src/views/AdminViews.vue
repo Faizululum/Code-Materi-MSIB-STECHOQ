@@ -6,8 +6,11 @@
         @edit-item="showEditForm"
         @add-item="showAddForm"
       />
-      <UserList v-if="currentComponent === 'users'" />
-      <TransactionList v-if="currentComponent === 'transactions'" />
+      <UserList v-else-if="currentComponent === 'users'" />
+      <TransactionList v-else-if="currentComponent === 'transactions'" />
+      <div v-else>
+          <p>Invalid component: {{ currentComponent }}</p>
+        </div>
     </div>
     <Modal
       v-if="showForm"
@@ -38,7 +41,7 @@ export default {
   props: {
     currentComponent: {
       type: String,
-      required: true,
+      default: "users",
     },
   },
   data() {
@@ -49,6 +52,9 @@ export default {
     };
   },
   methods: {
+    navigateTo(component) {
+      this.$router.push({ name: "user", params: { component } });
+    },
     showEditForm(item) {
       this.selectedItem = item;
       this.isEdit = true;

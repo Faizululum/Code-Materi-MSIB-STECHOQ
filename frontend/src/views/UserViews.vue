@@ -6,8 +6,15 @@
           v-if="currentComponent === 'items'"
           @edit-item="showEditForm"
         />
-        <TransactionList v-if="currentComponent === 'transactions'" />
-        <HistoryList v-if="currentComponent === 'history'" />
+        <TransactionList
+          v-else-if="currentComponent === 'transactions'"
+        />
+        <HistoryList
+          v-else-if="currentComponent === 'history'"
+        />
+        <div v-else>
+          <p>Invalid component: {{ currentComponent }}</p>
+        </div>
       </div>
     </div>
     <div v-if="showForm" class="form-container">
@@ -37,18 +44,26 @@ export default {
   props: {
     currentComponent: {
       type: String,
-      required: true,
+      default: "items",
     },
   },
   data() {
-      return {
-        showForm: false,
-        selectedItem: null,
-        isEdit: false,
-      };
+    return {
+      showForm: false,
+      selectedItem: null,
+      isEdit: false,
+    };
+  },
+  watch: {
+    currentComponent(newValue) {
+      console.log("Navigated to:", newValue);
     },
-    methods: {
-      showEditForm(item) {
+  },
+  methods: {
+    navigateTo(component) {
+      this.$router.push({ name: "user", params: { component } });
+    },
+    showEditForm(item) {
         this.selectedItem = item;
         this.isEdit = true;
         this.showForm = true;

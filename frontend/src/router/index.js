@@ -1,42 +1,56 @@
 import { createRouter, createWebHistory } from "vue-router";
+
 import AdminView from "../views/AdminViews.vue";
 import UserView from "../views/UserViews.vue";
-import LoginView from "@/views/LoginView.vue";
+import HomeView from "../views/HomeView.vue";
+
+import Login from "@/components/auth/Login.vue";
+import Register from "@/components/auth/Register.vue";
+import { useAuthStore } from "@/store/authStore";
 
 const routes = [
   {
     path: "/",
-    redirect: { name: "admin", params: { component: "items" } },
+    name: "home",
+    component: HomeView,
+    meta: { hideHeader: true, hideSidebar: true },
+    children: [
+      {
+        path: "login",
+        name: "login",
+        component: Login,
+      },
+      {
+        path: "register",
+        name: "register",
+        component: Register,
+      },
+    ],
   },
   {
-    path: "/admin/:component",
+    path: "/admin/:component?",
     name: "admin",
     component: AdminView,
     props: (route) => ({
-      currentComponent: route.params.component || "items",
+      currentComponent: route.params.component ?? "users",
     }),
-    meta: {
-      requiresAuth: true,
-      role: "admin",
+    meta: { 
+      requiresAuth: true, 
+      role: "ADMIN",
     },
   },
   {
-    path: "/user/:component",
+    path: "/user/:component?",
     name: "user",
     component: UserView,
     props: (route) => ({
-      currentComponent: route.params.component || "items",
-    }),
-    meta: {
-      requiresAuth: true,
-      role: "user",
+      currentComponent: route.params.component ?? "items",
+    }),    
+    meta: { 
+      requiresAuth: true, 
+      role: "USER", 
     },
-  },
-  {
-    path: "/login",
-    name: "login",
-    component: LoginView,
-  },
+  },  
 ];
 
 const router = createRouter({
@@ -45,18 +59,20 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = Boolean(localStorage.getItem("auth"));
-  const userRole = localStorage.getItem("role");
+  const authStore = useAuthStore();
+  const isAuthenticated = !!authStore.token;
+  const userRole = authStore.role;
 
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next({ name: "login" });
-  } else if (
-    to.meta.requiresAuth &&
-    isAuthenticated &&
-    to.meta.role !== userRole
-  ) {
-    alert("You are not authorized to access this page");
-    next(false);
+  if (to.meta.requiresAuth) {
+    if (isAuthenticated) {
+      if (userRole === to.meta.role || to.meta.role === undefined) { 
+        next();
+      } else {
+        next({ name: "home" });
+      }
+    } else {
+      next({ name: "home" });
+    }
   } else {
     next();
   }
