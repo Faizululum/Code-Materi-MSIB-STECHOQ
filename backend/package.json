@@ -1,7 +1,7 @@
 {
-  "name": "code-materi",
+  "name": "code-materi-backend",
   "version": "1.0.0",
-  "main": "src/app.js",
+  "main": "api/index.js",
   "scripts": {
     "start": "node main app",
     "test": "echo \"Error: no test specified\" && exit 1",
