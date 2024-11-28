@@ -22,4 +22,4 @@ app.use('/api/items', itemController);
 app.use('/api/users', adminAuthorization, userController);
 app.use('/api/transactions', transactionController);
 
-export default app;
+module.exports = app;
