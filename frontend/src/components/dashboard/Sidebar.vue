@@ -4,22 +4,22 @@
         <ul>
             <li v-if="currentRole === 'admin'">
                 <button @click="navigateTo('users')" class="nav-link">
-                    <i class="fas fa-home"></i> Users
+                    <i class="bi bi-house-door"></i> Users
                 </button>
             </li>
             <li>
                 <button @click="navigateTo('items')" class="nav-link">
-                    <i class="fas fa-box"></i> Items
+                    <i class="bi bi-box"></i> Items
                 </button>
             </li>
             <li>
                 <button @click="navigateTo('transactions')" class="nav-link">
-                    <i class="fas fa-exchange-alt"></i> Transactions
+                    <i class="bi bi-cash"></i> Transactions
                 </button>
             </li>
             <li v-if="currentRole === 'user'">
                 <button @click="navigateTo('history')" class="nav-link">
-                    <i class="fas fa-user"></i> History
+                    <i class="bi bi-clock-history"></i> History
                 </button>
             </li>
         </ul>
@@ -94,7 +94,8 @@ button, a {
     text-decoration: none;
     cursor: pointer;
     display: flex;
-    align-items: left;
+    justify-content: center;
+    align-items: center;
     padding: 10px 20px;
     transition: background-color 0.3s ease;
 }
